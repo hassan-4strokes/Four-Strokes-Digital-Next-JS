@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Boston";
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Website Scrollbar Styling */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1300bf1f;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: #5dd1ff;
+}
+
+/* Styling For Services Section */
+
+/* .service-bottom {
+  position: relative;
+  height: 300vh;
+}
+
+.services-container {
+  position: sticky;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding-top: 150px;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 20px;
+  padding: 0;
+} */
+
+/* Contact Form Styling */
+
+.form-banner-area {
+  background: url("../../public/./contact-form-background-image.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Styling Input Field */
+
+.phone-input {
+  -moz-appearance: textfield;
+}
+
+.phone-input::-webkit-outer-spin-button,
+.phone-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Styling For Editor */
+
+.editorjsdiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.editorjsdiv h2 {
+  font-size: 30px;
+  line-height: 36px;
+  color: #369DC5;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .editorjsdiv h2 {
+    font-size: 24px ;
+    line-height: 32px ;
+    color: #369DC5;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editorjsdiv h2 {
+    font-size: 30px ;
+    line-height: 36px ;
+    color: #369DC5;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .editorjsdiv h2 {
+    font-size: 36px ;
+    line-height: 40px ;
+    color: #369DC5;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+}
+
+
+.editorjsdiv h3 {
+  font-size: 24px;
+  line-height: 32px;
+  color: #5DD1FF;
+}
+
+@media (min-width: 768px) {
+  .editorjsdiv h3 {
+      font-size: 20px;
+      line-height: 28px;
+      color: #5DD1FF;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editorjsdiv h3 {
+      font-size: 24px;
+      line-height: 32px;
+      color: #5DD1FF;
+  }
+}
+
+@media (min-width: 1280px) {
+  .editorjsdiv h3 {
+      font-size: 30px;
+      line-height: 36px;
+      color: #5DD1FF;
+      margin-top: 10px;
+  }
+}
+
+.editorjsdiv p {
+  font-size: 14px;
+  line-height: 28px;
+  letter-spacing: 0.025em;
+  font-family: 'Creato Display';
+}
+
+@media (min-width: 1280px) {
+  .editorjsdiv p {
+      font-size: 16px;
+      line-height: 32px;
+      letter-spacing: 0.025em;
+      font-family: 'Creato Display';
+  }
+}
+
+@media (min-width: 1536px) {
+  .editorjsdiv p {
+      font-size: 18px;
+      letter-spacing: 0.025em;
+      font-family: 'Creato Display';
+  }
+}
+
+.editorjsdivintro p {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0.025em;
+  font-family: 'Creato Display';
+}
+
+@media (min-width: 1280px) {
+  .editorjsdivintro p {
+      font-size: 20px;
+      line-height: 32px;
+      letter-spacing: 0.025em;
+      font-family: 'Creato Display';
+  }
+}
+
+.editorjsdiv a {
+  color: #5DD1FF;
+}
+
+.editorjsdiv img {
+  margin-bottom: 20px;
+}
+
+.editorjsdiv ul {
+  padding-left: 20px;
+}
+
+.editorjsdiv li {
+  list-style: disc;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.025em;
+  font-family: 'Creato Display';
+}
+
+@media (min-width: 1536px) {
+  .editorjsdiv li {
+    list-style: disc;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.025em;
+      font-family: 'Creato Display';
+  }
+}

@@ -1,0 +1,23 @@
+User-agent: *
+
+Disallow: /auth
+Disallow: /admin
+Disallow: /admin/update-info
+Disallow: /admin/update-password
+Disallow: /admin/users
+Disallow: /admin/users/create-new
+Disallow: /admin/users/:username
+Disallow: /admin/users/:username/update-info
+Disallow: /admin/blogs
+Disallow: /admin/blogs/create-new
+Disallow: /admin/blogs/:slug
+Disallow: /admin/blogs/:slug/update-blog
+Disallow: /admin/categories
+Disallow: /admin/categories/create-new
+Disallow: /admin/categories/:slug
+Disallow: /admin/categories/:slug/update-category
+
+Allow: /assets/
+Allow: /public/
+
+Sitemap: https://fourstrokesdigital.com/sitemap.xml

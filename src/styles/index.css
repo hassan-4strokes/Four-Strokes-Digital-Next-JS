@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem
+  }
+}
+
+@import url('https://fonts.cdnfonts.com/css/boston');
+@import url('https://fonts.cdnfonts.com/css/creato-display');
