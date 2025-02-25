@@ -59,12 +59,14 @@ const PortfolioSection = () => {
             >
               {websiteDevelopementData.map((image, index) => {
                 return (
-                  <PortfolioImage
-                    index={image.id}
-                    image={image.image}
-                    animation={true}
-                    isImage={true}
-                  />
+                  <div className="w-fit" key={image.id}>
+                    <PortfolioImage
+                      index={image.id}
+                      image={image.image}
+                      animation={true}
+                      isImage={true}
+                    />
+                  </div>
                 );
               })}
             </div>

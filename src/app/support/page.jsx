@@ -1,10 +1,12 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import SupportHero from "@/components/hero/SupportHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
 import TextBanner from "@/utils/banner/TextBanner";
 import CardSection from "@/components/section/CardSection";
 import TestimonialSection from "@/components/section/TestimonialSection";
+import Footer from "@/utils/footer/Footer";
 import { supportCardsData } from "@/data/cards/SupportCardsData";
 import { supportCardsHeadingData } from "@/data/cards/SupportCardsHeadingData";
 import { supportMetaData } from "@/data/meta/PagesMetaData";
@@ -14,13 +16,14 @@ export const metadata = {
   description: supportMetaData.description,
   keywords: supportMetaData.focusKeyWord,
   alternates: {
-    canonical: supportMetaData.canonical
-  }
+    canonical: supportMetaData.canonical,
+  },
 };
 
 const Support = () => {
   return (
     <>
+      <Navbar pageName={"Support"} />
       <SupportHero />
       <RatingsExperienceSection />
       <ImageAndTextSection
@@ -60,6 +63,7 @@ const Support = () => {
         cardsData={supportCardsData}
       />
       <TestimonialSection />
+      <Footer />
     </>
   );
 };

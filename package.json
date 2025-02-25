@@ -9,24 +9,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.30.8",
     "@radix-ui/react-slot": "^1.1.2",
     "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
+    "editorjs-html": "^4.0.5",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.4.2",
     "lucide-react": "^0.475.0",
+    "mongoose": "^8.10.1",
     "next": "^15.1.7",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-scroll-trigger": "^0.6.14",
     "react-share": "^5.2.0",
+    "react-toastify": "^11.0.3",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.16.1",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

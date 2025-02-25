@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -6,7 +7,13 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
-import { one, two, three, four } from "@/data/dropdown/ReactNativeApplicationFAQData";
+import Footer from "@/utils/footer/Footer";
+import {
+  one,
+  two,
+  three,
+  four,
+} from "@/data/dropdown/ReactNativeApplicationFAQData";
 import { reactNativeApplicationMetaData } from "@/data/meta/ServicesMetaData";
 
 export const metadata = {
@@ -14,13 +21,14 @@ export const metadata = {
   description: reactNativeApplicationMetaData.description,
   keywords: reactNativeApplicationMetaData.focusKeyWord,
   alternates: {
-    canonical: reactNativeApplicationMetaData.canonical
-  }
+    canonical: reactNativeApplicationMetaData.canonical,
+  },
 };
 
 const ReactNativeApplication = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={"Premier React Native App Development Company"}
@@ -85,6 +93,7 @@ const ReactNativeApplication = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

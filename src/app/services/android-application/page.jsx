@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
@@ -6,6 +7,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two } from "@/data/dropdown/AndroidApplicationFAQData";
 import { androidApplicationMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -14,13 +16,14 @@ export const metadata = {
   description: androidApplicationMetaData.description,
   keywords: androidApplicationMetaData.focusKeyWord,
   alternates: {
-    canonical: androidApplicationMetaData.canonical
-  }
+    canonical: androidApplicationMetaData.canonical,
+  },
 };
 
 const AndroidApplication = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={"Custom Android Application Development Company"}
@@ -62,6 +65,7 @@ const AndroidApplication = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

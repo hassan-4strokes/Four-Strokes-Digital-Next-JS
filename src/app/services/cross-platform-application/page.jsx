@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -6,6 +7,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two } from "@/data/dropdown/CrossPlatformApplicationFAQData";
 import { crossPlatformApplicationMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -14,13 +16,14 @@ export const metadata = {
   description: crossPlatformApplicationMetaData.description,
   keywords: crossPlatformApplicationMetaData.focusKeyWord,
   alternates: {
-    canonical: crossPlatformApplicationMetaData.canonical
-  }
+    canonical: crossPlatformApplicationMetaData.canonical,
+  },
 };
 
 const CrossPlatformApplication = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={
@@ -63,6 +66,7 @@ const CrossPlatformApplication = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

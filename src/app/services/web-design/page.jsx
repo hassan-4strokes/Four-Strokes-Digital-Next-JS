@@ -1,3 +1,4 @@
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -5,6 +6,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two } from "@/data/dropdown/AndroidApplicationFAQData";
 import { webDesignMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -13,13 +15,14 @@ export const metadata = {
   description: webDesignMetaData.description,
   keywords: webDesignMetaData.focusKeyWord,
   alternates: {
-    canonical: webDesignMetaData.canonical
-  }
+    canonical: webDesignMetaData.canonical,
+  },
 };
 
 const WebDesign = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={"Creative web design company"}
@@ -70,6 +73,7 @@ const WebDesign = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

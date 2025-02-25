@@ -13,23 +13,25 @@ const LocationSection = () => {
             Locations We Catered
           </h2>
           <p className="w-full text-sm xl:text-base 2xl:text-lg text-center tracking-wider font-['Creato_Display']">
-            At Four Strokes Digital, we offer top-tier app development, custom software,
-            and digital marketing services across the world including USA, UK,
-            Australia & GCC. Our expert app developers deliver innovative mobile
-            & web solutions tailored to your business needs, regardless of your
-            locations. From Android and iOS app development to custom software
-            and game development, we help businesses succeed.
+            At Four Strokes Digital, we offer top-tier app development, custom
+            software, and digital marketing services across the world including
+            USA, UK, Australia & GCC. Our expert app developers deliver
+            innovative mobile & web solutions tailored to your business needs,
+            regardless of your locations. From Android and iOS app development
+            to custom software and game development, we help businesses succeed.
           </p>
         </div>
         <div className="location-area w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex gap-2">
           {locationCardsData.map((location, index) => {
             return (
-              <LocationsCard
-                location={location}
-                index={index}
-                hoveredIndex={hoveredIndex}
-                setHoveredIndex={setHoveredIndex}
-              />
+              <div key={index} className="w-fit">
+                <LocationsCard
+                  location={location}
+                  index={index}
+                  hoveredIndex={hoveredIndex}
+                  setHoveredIndex={setHoveredIndex}
+                />
+              </div>
             );
           })}
         </div>

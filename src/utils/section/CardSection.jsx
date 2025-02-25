@@ -18,9 +18,9 @@ const CardSection = ({ cardsData }) => {
           color={"#000000"}
         />
         <div className="inner w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {cardsData.map((item, index) => {
+          {cardsData.map((item) => {
             return (
-              <div key={index} className="w-full">
+              <div key={item.id} className="w-full">
                 <CategoriesCard
                   image={item.image}
                   heading={item.heading}

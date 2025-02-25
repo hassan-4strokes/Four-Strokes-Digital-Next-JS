@@ -17,12 +17,14 @@ const CardSection = ({ CardsHeadingData, cardsData }) => {
         <div className="inner w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {cardsData.map((item, index) => {
             return (
-              <Cards
-                index={index}
-                image={item.image}
-                heading={item.heading}
-                text={item.text}
-              />
+              <div key={index} className="w-fit">
+                <Cards
+                  index={index}
+                  image={item.image}
+                  heading={item.heading}
+                  text={item.text}
+                />
+              </div>
             );
           })}
         </div>

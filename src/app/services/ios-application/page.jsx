@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -6,6 +7,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two } from "@/data/dropdown/IOSApplicationFAQData";
 import { iosApplicationMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -14,13 +16,14 @@ export const metadata = {
   description: iosApplicationMetaData.description,
   keywords: iosApplicationMetaData.focusKeyWord,
   alternates: {
-    canonical: iosApplicationMetaData.canonical
-  }
+    canonical: iosApplicationMetaData.canonical,
+  },
 };
 
 const IOSApplication = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={
@@ -94,6 +97,7 @@ const IOSApplication = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

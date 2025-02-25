@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -6,6 +7,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two, three } from "@/data/dropdown/FlutterApplicationFAQData";
 import { flutterApplicationMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -14,13 +16,14 @@ export const metadata = {
   description: flutterApplicationMetaData.description,
   keywords: flutterApplicationMetaData.focusKeyWord,
   alternates: {
-    canonical: flutterApplicationMetaData.canonical
-  }
+    canonical: flutterApplicationMetaData.canonical,
+  },
 };
 
 const FlutterApplication = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={
@@ -75,6 +78,7 @@ const FlutterApplication = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

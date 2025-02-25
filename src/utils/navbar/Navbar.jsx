@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const Navbar = () => {
-  const [pageName, setPageName] = useState("");
+const Navbar = ({ pageName }) => {
 
   const [navClick, setNavClick] = useState(false);
 
@@ -51,12 +50,7 @@ const Navbar = () => {
                           : () => setHover(false)
                       }
                       onMouseLeave={() => setHover(false)}
-                      className={`nava h-full 
-                        ${
-                          item.toLocaleLowerCase() == pageName
-                            ? "text-[#5DD1FF]"
-                            : "text-black"
-                        } 
+                      className={`nava h-full ${ item == pageName ? "text-[#5DD1FF]" : "text-black" }
                       flex items-center border-b-[2px] border-transparent hover:border-[#5DD1FF] cursor-pointer hover:text-[#5DD1FF] ${
                         pageName == "Blogs" && item == "Blogs"
                           ? "pointer-events-none"

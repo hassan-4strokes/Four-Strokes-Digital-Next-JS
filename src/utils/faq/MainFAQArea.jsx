@@ -32,10 +32,10 @@ const MainFAQArea = ({ faq }) => {
               active ? "visible" : "hidden"
             } flex flex-col gap-3 text-base xl:text-lg 2xl:text-xl tracking-wide font-['Creato_Display'] pl-5`}
           >
-            {faq.list.map((item, index) => {
+            {faq.list.map((item) => {
               return (
                 <li
-                  key={index}
+                  key={item.id}
                   className={`${active ? "visible" : "hidden"} list-disc`}
                 >
                   <h3
@@ -59,10 +59,10 @@ const MainFAQArea = ({ faq }) => {
               active ? "visible" : "hidden"
             } flex flex-col gap-3 text-[14px] lg:text-[16px] xl:text-[18px] tracking-wide font-['Creato_Display'] pl-5`}
           >
-            {faq.points.map((item, index) => {
+            {faq.points.map((item) => {
               return (
                 <li
-                  key={index}
+                  key={item.id}
                   className={`${active ? "visible" : "hidden"} list-disc`}
                 >
                   <span className="text-zinc-700">{item}</span>

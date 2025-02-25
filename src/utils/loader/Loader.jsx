@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Loader = () => {
+const Loader = ({ size }) => {
   return (
-    <div className="w-10 h-10 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin" />
+    <div className={`${ size ? `w-${size} h-${size}` : "w-6 h-6" } border-2 border-t-[#5DD1FF] border-white rounded-full animate-spin`} />
   );
 }
 

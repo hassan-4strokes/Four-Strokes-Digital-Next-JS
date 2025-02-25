@@ -1,10 +1,11 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const Context = createContext({ isAuthenticated: false });
+const AppContext = createContext();
 
-export const contextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }) => {
+
   const [fullSidebar, setFullSidebar] = useState(true);
 
   const [localHost, setLocalHost] = useState("http://localhost:3000");
@@ -24,7 +25,7 @@ export const contextProvider = ({ children }) => {
   const [dashboardLinksIndex, setDashboardLinksIndex] = useState(1);
 
   return (
-    <Context.Provider
+    <AppContext.Provider
       value={{
         isAuthenticated,
         setIsAuthenticated,
@@ -43,6 +44,10 @@ export const contextProvider = ({ children }) => {
       }}
     >
       {children}
-    </Context.Provider>
+    </AppContext.Provider>
   );
 };
+
+export const useAppContext = () => {
+  return useContext(AppContext);
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/utils/navbar/Navbar";
 import ServicesInnerHero from "@/utils/hero/ServicesInnerHero";
 import RatingsExperienceSection from "@/utils/section/RatingsExperienceSection";
 import ImageAndTextSection from "@/utils/section/ImageAndTextSection";
@@ -6,6 +7,7 @@ import TextBanner from "@/utils/banner/TextBanner";
 import IconBanner from "@/utils/banner/IconBanner";
 import TestimonialSection from "@/components/section/TestimonialSection";
 import ServicesContactSection from "@/utils/section/ServicesContactSection";
+import Footer from "@/utils/footer/Footer";
 import { one, two } from "@/data/dropdown/MVPDevelopmentFAQData";
 import { mvpDevelopmentMetaData } from "@/data/meta/ServicesMetaData";
 
@@ -14,13 +16,14 @@ export const metadata = {
   description: mvpDevelopmentMetaData.description,
   keywords: mvpDevelopmentMetaData.focusKeyWord,
   alternates: {
-    canonical: mvpDevelopmentMetaData.canonical
-  }
+    canonical: mvpDevelopmentMetaData.canonical,
+  },
 };
 
 const MVPDevelopment = () => {
   return (
     <>
+      <Navbar pageName={"Services"} />
       <ServicesInnerHero
         subHeading={"Solutions"}
         mainHeading={"MVP Development Company for Startups and Enterprises"}
@@ -81,6 +84,7 @@ const MVPDevelopment = () => {
       />
       <TestimonialSection />
       <ServicesContactSection />
+      <Footer />
     </>
   );
 };

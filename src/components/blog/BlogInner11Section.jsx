@@ -12,8 +12,8 @@ const BlogInner11Section = ({ blogTableOfContentData }) => {
     mainEntity: [],
   };
 
-  blog11FAQData.map((item, index) => {
-    return faqSchema.mainEntity.push({
+  blog11FAQData.forEach((item) => {
+    faqSchema.mainEntity.push({
       "@type": "Question",
       name: item.heading,
       acceptedAnswer: {
