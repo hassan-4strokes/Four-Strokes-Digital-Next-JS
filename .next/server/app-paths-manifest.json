@@ -1,0 +1,19 @@
+{
+  "/api/v1/blogs/create-new/route": "app/api/v1/blogs/create-new/route.js",
+  "/admin/blogs/page": "app/admin/blogs/page.js",
+  "/api/v1/blogs/get-all-blogs/route": "app/api/v1/blogs/get-all-blogs/route.js",
+  "/admin/blogs/[slug]/page": "app/admin/blogs/[slug]/page.js",
+  "/api/v1/blogs/get-blog-details/[slug]/route": "app/api/v1/blogs/get-blog-details/[slug]/route.js",
+  "/api/v1/categories/get-all-categories/route": "app/api/v1/categories/get-all-categories/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/v1/blogs/delete-blog/[slug]/route": "app/api/v1/blogs/delete-blog/[slug]/route.js",
+  "/admin/blogs/create-new/page": "app/admin/blogs/create-new/page.js",
+  "/auth/page": "app/auth/page.js",
+  "/admin/users/create-new/page": "app/admin/users/create-new/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/users/page": "app/admin/users/page.js",
+  "/api/v1/users/get-all-users/route": "app/api/v1/users/get-all-users/route.js",
+  "/admin/categories/page": "app/admin/categories/page.js"
+}

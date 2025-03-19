@@ -1,5 +1,5 @@
 import User from "@/models/user.model";
-import databaseConnection from "@/lib/database";
+import databaseConnection from "@/database/database.js";
 import { NextResponse } from "next/server";
 
 databaseConnection();

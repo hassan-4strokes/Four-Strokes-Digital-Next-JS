@@ -1,23 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "@/context/Context";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import Loader from "@/utils/loader/Loader";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const UpdateUserInfo = () => {
+  const { username } = useParams();
+
+  const router = useRouter();
 
     const { user, fullSidebar } = useAppContext();
 
-    const [name, setName] = useState(user.name);
-    const [userUsername, setUserUsername] = useState(user.username);
-    const [email, setEmail] = useState(user.email);
-    const [role, setRole] = useState(user.role);
+    const [userDetails, setUserDetails] = useState({});
+    const [name, setName] = useState("");
+    const [userUsername, setUserUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const handleUpdateUserInfo = () => {
+    const handleUpdateUserInfo = async () => {
       setLoading(true);
+      try {
+        const response = await axios.put(
+          `/api/v1/users/update-user/${username}`,
+          {
+            name,
+            userUsername,
+            email,
+            role
+          },
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        toast.success(response.data.message);
+        setName("");
+        setUserUsername("");
+        setEmail("");
+        setRole("");
+        setLoading(false);
+        router.push("/admin/users");
+      } catch (error) {
+        toast.error(error.response.data.message);
+        setLoading(false);
+      }
     };
+
+    useEffect(() => {
+      const fetchCategoryDetails = async () => {
+        try {
+          const response = await axios.get(
+            `/api/v1/users/get-user-details/${username}`,
+            {
+              withCredentials: true,
+            }
+          );
+          setUserDetails(response.data.user);
+          setName(response.data.user.name);
+          setUserUsername(response.data.user.username);
+          setEmail(response.data.user.email);
+          setRole(response.data.user.role);
+        } catch (error) {
+          console.error("Some Error Occured While Fetching Users", error);
+        }
+      };
+  
+      fetchCategoryDetails();
+    }, []);
 
   return (
     <>

@@ -1,7 +1,10 @@
+"use client"
+
 import React from "react";
 import Button from "../../utils/button/Button";
 
 const HomeSection = () => {
+
   return (
     <div className="section w-full px-[30px] sm:px-[50px] xl:px-[12vw] bg-[#5DD1FF]">
       <div className="inner-section w-full h-full flex flex-col md:flex-row items-center md:items-end justify-center">

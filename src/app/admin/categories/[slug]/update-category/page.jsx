@@ -1,22 +1,72 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "@/context/Context";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import Loader from "@/utils/loader/Loader";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const UpdateCategory = () => {
+  const { slug } = useParams();
+
+  const router = useRouter();
 
   const { fullSidebar } = useAppContext();
 
   const [categoryDetails, setCategoryDetails] = useState({});
-  const [name, setName] = useState(categoryDetails.name);
-  const [userSlug, setUserSlug] = useState(categoryDetails.slug);
+  const [name, setName] = useState("");
+  const [userSlug, setUserSlug] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleUpdateCategory = () => {
+  const handleUpdateCategory = async () => {
     setLoading(true);
-  }
+    try {
+      const response = await axios.put(
+        `/api/v1/categories/update-category/${slug}`,
+        {
+          name,
+          userSlug,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      toast.success(response.data.message);
+      setName("");
+      setUserSlug("");
+      setLoading(false);
+      router.push("/admin/categories");
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchCategoryDetails = async () => {
+      try {
+        const response = await axios.get(
+          `/api/v1/categories/get-category-details/${slug}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setCategoryDetails(response.data.category); 
+        setName(response.data.category.name);
+        setUserSlug(response.data.category.slug);
+      } catch (error) {
+        console.error("Some Error Occured While Fetching Categories", error);
+      }
+    };
+
+    fetchCategoryDetails();
+  }, []);
 
   return (
     <>

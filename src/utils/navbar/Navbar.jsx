@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 const Navbar = ({ pageName }) => {
-
   const [navClick, setNavClick] = useState(false);
 
   const [hover, setHover] = useState(false);
@@ -23,6 +22,8 @@ const Navbar = ({ pageName }) => {
   const [mobileNavTwo, setMobileNavTwo] = useState(false);
 
   const [mobileNavThree, setMobileNavThree] = useState(false);
+
+  
 
   return (
     <>
@@ -50,7 +51,9 @@ const Navbar = ({ pageName }) => {
                           : () => setHover(false)
                       }
                       onMouseLeave={() => setHover(false)}
-                      className={`nava h-full ${ item == pageName ? "text-[#5DD1FF]" : "text-black" }
+                      className={`nava h-full ${
+                        item == pageName ? "text-[#5DD1FF]" : "text-black"
+                      }
                       flex items-center border-b-[2px] border-transparent hover:border-[#5DD1FF] cursor-pointer hover:text-[#5DD1FF] ${
                         pageName == "Blogs" && item == "Blogs"
                           ? "pointer-events-none"

@@ -4,16 +4,58 @@ import { useState } from "react";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import { useAppContext } from "@/context/Context";
 import Loader from "@/utils/loader/Loader";
+import { toast } from "react-toastify";
+import axios from "axios";
+
 const CreateNewCategory = () => {
-  
   const { fullSidebar } = useAppContext();
 
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleCreateNewCategory = () => {
+  const handleCreateNewCategory = async () => {
     setLoading(true);
+    if (!name || !slug) {
+      toast.error("All Fields Are Required");
+      setLoading(false);
+      return;
+    }
+
+    if (name.length < 3) {
+      toast.error("Name Should Have Atleast 3 Characters");
+      setLoading(false);
+      return;
+    }
+
+    if (slug.length < 3) {
+      toast.error("Slug Should Have Atleast 3 Characters");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "/api/v1/categories/create-new",
+        {
+          name,
+          slug,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(response.data.message);
+      setName("");
+      setSlug("");
+      setLoading(false);
+    } catch (error) {
+      console.error("Some Error Occured While Creating New User", error);
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,7 +110,7 @@ const CreateNewCategory = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CreateNewCategory
+export default CreateNewCategory;

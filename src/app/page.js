@@ -23,7 +23,8 @@ export const metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {  
+
   return (
     <>
       <Navbar pageName={"Home"} />

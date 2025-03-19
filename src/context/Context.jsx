@@ -7,21 +7,13 @@ const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
 
   const [fullSidebar, setFullSidebar] = useState(true);
-
   const [localHost, setLocalHost] = useState("http://localhost:3000");
-
   const [renderHost, setRenderHost] = useState(
     "https://four-strokes-digital.onrender.com"
   );
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const [user, setUser] = useState({});
-
   const [userDetails, setUserDetails] = useState({});
-
-  // States Linked With Frontend
-
   const [dashboardLinksIndex, setDashboardLinksIndex] = useState(1);
 
   return (
@@ -50,4 +42,4 @@ export const AppContextProvider = ({ children }) => {
 
 export const useAppContext = () => {
   return useContext(AppContext);
-}
+};

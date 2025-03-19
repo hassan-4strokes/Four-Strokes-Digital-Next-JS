@@ -4,7 +4,7 @@ const blogSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Please Enter A Title"],
+      // required: [true, "Please Enter A Title"],
       minLength: [3, "Title Should Have Atleast 3 Characters"],
     },
     slug: {
@@ -18,42 +18,44 @@ const blogSchema = new mongoose.Schema(
     },
     canonical: {
       type: String,
-      required: [true, "Please Enter A Canonical URL"],
+      // required: [true, "Please Enter A Canonical URL"],
     },
     description: {
       type: String,
       required: [true, "Please Enter A Description"],
-      minLength: [10, "Description Should Have Atleast 10 Characters"],
+      // minLength: [10, "Description Should Have Atleast 10 Characters"],
     },
     thumbnail: {
-      type: String,
-      required: [true, "Please Upload A Thumbnail"],
+      url: {
+        type: String,
+      }
+      // required: [true, "Please Upload A Thumbnail"],
     },
     alternateText: {
       type: String,
-      required: [true, "Please Enter An Alternate Text For Your Thumbnail"],
+      // required: [true, "Please Enter An Alternate Text For Your Thumbnail"],
     },
     intro: {
       type: Object,
-      required: [true, "Please Enter Blog Intro Paragraph"],
+      // required: [true, "Please Enter Blog Intro Paragraph"],
     },
     content: {
       type: Object,
-      required: [true, "Please Enter Content"],
+      // required: [true, "Please Enter Content"],
     },
     metaTitle: {
       type: String,
-      required: [true, "Please Enter A Meta Title"],
+      // required: [true, "Please Enter A Meta Title"],
       minLength: [3, "Meta Title Should Have Atleast 3 Characters"],
     },
     metaDescription: {
       type: String,
-      required: [true, "Please Enter A Meta Description"],
+      // required: [true, "Please Enter A Meta Description"],
       minLength: [10, "Meta Description Should Have Atleast 10 Characters"],
     },
     primaryKeyword: {
       type: String,
-      required: [true, "Please Enter A Primary Keyword"],
+      // required: [true, "Please Enter A Primary Keyword"],
     },
     tableOfContent: [
       {
@@ -74,10 +76,12 @@ const blogSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
   },
   { timestamps: true }
 );
 
-export const Blog = mongoose.model("Blog", blogSchema);
+const Blog = mongoose.models?.blogs || mongoose.model("blogs", blogSchema);
+
+export default Blog;

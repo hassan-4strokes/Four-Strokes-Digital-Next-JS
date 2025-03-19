@@ -6,12 +6,27 @@ import Sidebar from "@/utils/sidebar/Sidebar";
 import { useAppContext } from "@/context/Context";
 import Link from "next/link";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const Users = () => {
-  const { user, fullSidebar } = useAppContext();
+  const { user, setUser, fullSidebar } = useAppContext();
 
   const [users, setUsers] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
+
+  const { data: session } = useSession();
+
+  const handleDeleteUser = async (username) => {
+    try {
+      const response = await axios.delete(
+        `/api/v1/users/delete-user/${username}`
+      );
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,7 +41,11 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [users]);
+
+    if (session) {
+      setUser(session?.user);
+    }
+  }, [handleDeleteUser]);
 
   return (
     <>
@@ -49,9 +68,9 @@ const Users = () => {
                   <h2 className="text-lg sm:text-xl md:text-2xl">
                     Total Users
                   </h2>
-                  {user && user.role == "Admin" ? (
+                  {user.role == "Admin" ? (
                     <Link
-                      to={"/admin/users/create-new"}
+                      href={"/admin/users/create-new"}
                       className="text-white flex items-center gap-1 px-5 py-2 rounded-lg bg-[#5DD1FF] transition-all ease-in-out duration-300 hover:bg-[#5DD1FF]"
                     >
                       <i className="fa-solid fa-users"></i>+
@@ -112,7 +131,7 @@ const Users = () => {
                                 key={index}
                                 className={`w-full ${
                                   users.length - 1 !== index
-                                    ? "border-b-[1px] border-zinc-200"
+                                    ? "border-b-[0px] border-zinc-200"
                                     : ""
                                 } border-zinc-200 py-4`}
                               >

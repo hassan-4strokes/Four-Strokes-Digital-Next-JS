@@ -4,9 +4,23 @@ import Sidebar from "@/utils/sidebar/Sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAppContext } from "@/context/Context";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
-  const { user, fullSidebar } = useAppContext();
+
+  const router = useRouter();
+
+  const { user, setUser, fullSidebar } = useAppContext();
+
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      setUser(session?.user);
+    }
+  });
 
   return (
     <>
@@ -37,7 +51,7 @@ const Profile = () => {
                           <Skeleton className="h-4 w-[150px] md:w-[200px]" />
                         </div>
                       )}
-                      <div className="relative sm:absolute right-0 w-full sm:w-fit flex items-center gap-3">
+                      {/* <div className="relative sm:absolute right-0 w-full sm:w-fit flex items-center gap-3">
                         <Link
                           href="/admin/update-info"
                           className="text-center text-white w-[40%] sm:w-fit px-0 sm:px-5 py-2 rounded-lg bg-[#5DD1FF] transition-all ease-in-out duration-300 hover:bg-[#5DD1FF]"
@@ -50,7 +64,7 @@ const Profile = () => {
                         >
                           Update Password
                         </Link>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="w-full border-b-[1px] border-zinc-200 py-4 text-black">
                       <span className={`${user.username ? "" : "flex items-center gap-2"}`}>Username : {user.username ? user.username : <div className="py-1"><Skeleton className="h-4 w-[150px] md:w-[200px]" /></div>}</span>

@@ -1,16 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import { useAppContext } from "@/context/Context";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Blogs = () => {
+  const { user, setUser, fullSidebar } = useAppContext();
 
-  const { user, fullSidebar } = useAppContext();
+  const [blogs, setBlogs] = useState([]);
 
-  const [ blogs, setBlogs ] = useState([])
+  const { data: session } = useSession();
+  const [isFetched, setIsFetched] = useState(false);
+
+  const handleDeleteBlog = async (slug) => {
+    try {
+      const response = await axios.delete(`/api/v1/blogs/delete-blog/${slug}`);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const handleDeleteAction = async (slug) => {
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      handleDeleteBlog(slug);
+    } else {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get("/api/v1/blogs/get-all-blogs");
+        setBlogs(response.data.blogs.reverse());
+        setIsFetched(true);
+      } catch (error) {
+        console.error("Some Error Occured While Fetching Blogs", error);
+        setIsFetched(false);
+      }
+    };
+
+    fetchBlogs();
+
+    if (session) {
+      setUser(session?.user);
+    }
+  }, [handleDeleteAction]);
 
   return (
     <>
@@ -33,9 +74,9 @@ const Blogs = () => {
                   <h2 className="text-lg sm:text-xl md:text-2xl">
                     Total Blogs
                   </h2>
-                  {user && user.role == "Admin" ? (
+                  {user.role == "Admin" ? (
                     <Link
-                      to={"/admin/blogs/create-new"}
+                      href={"/admin/blogs/create-new"}
                       className="text-white flex items-center gap-1 px-5 py-2 rounded-lg bg-[#5DD1FF] transition-all ease-in-out duration-300 hover:bg-[#5DD1FF]"
                     >
                       <i className="fa-solid fa-file-signature"></i>+
@@ -65,45 +106,7 @@ const Blogs = () => {
                     </div>
                   </div>
                   <div className="content-area w-full flex flex-col">
-                    {user && user.role === "Admin" && blogs ? (
-                      blogs.map((item, index) => (
-                        <div
-                          key={index}
-                          className="inner-details flex border-t-[1px] border-zinc-200"
-                        >
-                          <div className="name w-full flex flex-col items-start justify-center">
-                            <span
-                              key={index}
-                              className={`w-full ${
-                                blogs.length - 1 !== index
-                                  ? "border-b-[1px] border-zinc-200"
-                                  : ""
-                              } border-zinc-200 py-4`}
-                            >
-                              {item.title}
-                            </span>
-                          </div>
-                          <div className="users w-fit flex flex-col items-start justify-center">
-                            <div className="flex items-center gap-1 sm:gap-3">
-                              <Link
-                                href={`/admin/blogs/${item.slug}`}
-                                className="w-full text-center text-white px-5 py-2 rounded-lg bg-blue-600 transition-all ease-in-out duration-300 hover:bg-blue-700"
-                              >
-                                <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                              </Link>
-                              {user && user.role == "Admin" && (
-                                <Link
-                                  onClick={() => handleDeleteAction(item.slug)}
-                                  className="w-full text-center text-white px-5 py-2 rounded-lg bg-red-600 transition-all ease-in-out duration-300 hover:bg-red-700"
-                                >
-                                  <i className="fa-solid fa-trash"></i>
-                                </Link>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
+                    {isFetched == false ? (
                       <>
                         {Array.from({ length: 10 }).map((item) => {
                           return (
@@ -115,17 +118,54 @@ const Blogs = () => {
                                 <Skeleton className="h-4 w-[150px] md:w-[200px]" />
                               </div>
                               <div className="flex items-center gap-1 sm:gap-3">
-                                <span className="w-full cursor-pointer text-center text-white px-5 py-2 rounded-lg bg-blue-600 transition-all ease-in-out duration-300 hover:bg-blue-700">
-                                  <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </span>
-                                <span className="w-full cursor-pointer text-center text-white px-5 py-2 rounded-lg bg-red-600 transition-all ease-in-out duration-300 hover:bg-red-700">
-                                  <i className="fa-solid fa-trash"></i>
-                                </span>
+                                <Skeleton className="h-10 w-[55px]" />
                               </div>
                             </div>
                           );
                         })}
                       </>
+                    ) : (
+                      blogs.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="inner-details flex border-t-[1px] border-zinc-200"
+                          >
+                            <div className="name w-full flex flex-col items-start justify-center">
+                              <span
+                                key={index}
+                                className={`w-full ${
+                                  blogs.length - 1 !== index
+                                    ? "border-b-[1px] border-zinc-200"
+                                    : ""
+                                } border-zinc-200 py-4`}
+                              >
+                                {item.title}
+                              </span>
+                            </div>
+                            <div className="users w-fit flex flex-col items-start justify-center">
+                              <div className="flex items-center gap-1 sm:gap-3">
+                                <Link
+                                  href={`/admin/blogs/${item.slug}`}
+                                  className="w-full text-center text-white px-5 py-2 rounded-lg bg-blue-600 transition-all ease-in-out duration-300 hover:bg-blue-700"
+                                >
+                                  <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                </Link>
+                                {user && user.role == "Admin" && (
+                                  <span
+                                    onClick={() =>
+                                      handleDeleteAction(item.slug)
+                                    }
+                                    className="w-full cursor-pointer text-center text-white px-5 py-2 rounded-lg bg-red-600 transition-all ease-in-out duration-300 hover:bg-red-700"
+                                  >
+                                    <i className="fa-solid fa-trash"></i>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
                     )}
                   </div>
                 </div>

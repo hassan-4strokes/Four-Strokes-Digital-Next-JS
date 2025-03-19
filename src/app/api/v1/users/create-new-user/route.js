@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import User from "@/models/user.model";
-import databaseConnection from "@/lib/database";
+import databaseConnection from "@/database/database";
 import { NextResponse } from "next/server";
 
 databaseConnection();
@@ -9,7 +9,7 @@ export async function POST(request) {
     const reqBody = await request.json();
     const { name, username, email, password, role } = reqBody;
 
-    const isUserExists = await User.findOne({ email });
+    const isUserExists = await User.findOne({ username });
 
     if (isUserExists) {
       return NextResponse.json(
@@ -35,14 +35,13 @@ export async function POST(request) {
       );
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       name,
       username,
       email,
-      password: hashPassword,
+      password: hashedPassword,
       role,
     });
 

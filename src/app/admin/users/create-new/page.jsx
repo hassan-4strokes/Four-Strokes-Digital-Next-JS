@@ -51,7 +51,7 @@ const CreateNewUser = () => {
     }
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "/api/v1/users/create-new-user",
         {
           name,
@@ -66,7 +66,7 @@ const CreateNewUser = () => {
           },
         }
       );
-      toast.success("User Created Successfully");
+      toast.success(response.data.message);
       setName("");
       setUsername("");
       setEmail("");
@@ -75,7 +75,7 @@ const CreateNewUser = () => {
       setLoading(false);
     } catch (error) {
       console.error("Some Error Occured While Creating New User", error);
-      toast.error("User Creation Failed");
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };

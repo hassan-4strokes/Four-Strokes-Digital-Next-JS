@@ -1,16 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "@/context/Context";
 import { Skeleton } from "@/components/ui/skeleton";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import Link from "next/link";
+import axios from "axios";
+import { useParams } from "next/navigation";
 
 const CategoryDetail = () => {
+
+  const { slug } = useParams()
 
   const { user, fullSidebar } = useAppContext();
 
   const [categoryDetails, setCategoryDetails] = useState({});
+
+  useEffect(() => {
+      const fetchCategoryDetails = async () => {
+        try {
+          const response = await axios.get(`/api/v1/categories/get-category-details/${slug}`);
+          setCategoryDetails(response.data.category);
+        } catch (error) {
+          console.error("Some Error Occured While Fetching Users Details", error);
+        }
+      };
+  
+      fetchCategoryDetails();
+    });
 
   return (
     <>
@@ -28,7 +45,7 @@ const CategoryDetail = () => {
               </h1>
             </div>
             <div className="bottom w-full h-full flex flex-col gap-10">
-              <div className="card w-full h-fit flex flex-col gap-5 p-5 px-4 rounded-xl bg-white">
+              <div className="card w-full h-fit flex flex-col gap-5 p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                 <div className="card-top flex items-center justify-between">
                   <div className="user-info w-full flex flex-col">
                     <div className="w-full user relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">

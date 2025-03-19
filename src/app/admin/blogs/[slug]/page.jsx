@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "@/context/Context";
 import { Skeleton } from "@/components/ui/skeleton";
 import Sidebar from "@/utils/sidebar/Sidebar";
 import Link from "next/link";
 import EditorJSHTML from "editorjs-html";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
 const BlogDetails = () => {
+  const { slug } = useParams();
+
   const { user, fullSidebar } = useAppContext();
 
   const [blogDetails, setBlogDetails] = useState({});
@@ -17,11 +21,39 @@ const BlogDetails = () => {
   const editorJSHTML = EditorJSHTML();
 
   const htmlIntro = blogDetails.intro
-    ? editorJSHTML.parse(blogDetails.intro).join("")
+    ? editorJSHTML.parse(blogDetails.intro)
     : "";
   const htmlContent = blogDetails.content
-    ? editorJSHTML.parse(blogDetails.content).join("")
+    ? editorJSHTML.parse(blogDetails.content)
     : "";
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          `/api/v1/categories/get-all-categories`
+        );
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error("Some Error Occured While Fetching Categories", error);
+      }
+    };
+
+    fetchCategories();
+
+    const fetchBlogDetails = async () => {
+      try {
+        const response = await axios.get(
+          `/api/v1/blogs/get-blog-details/${slug}`
+        );
+        setBlogDetails(response.data.blog);
+      } catch (error) {
+        console.error("Some Error Occured While Fetching Blog Details", error);
+      }
+    };
+
+    fetchBlogDetails();
+  }, []);
 
   return (
     <>
@@ -39,7 +71,7 @@ const BlogDetails = () => {
               </h1>
             </div>
             <div className="bottom w-full h-full flex flex-col gap-5">
-              <div className="card w-full h-fit flex flex-col gap-5 p-5 px-4 rounded-xl bg-white">
+              <div className="card w-full h-fit flex flex-col gap-5 p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                 <div className="card-top flex items-center justify-between">
                   <div className="info w-full flex flex-col">
                     <div className="w-full user relative flex flex-row items-center justify-between gap-3 sm:gap-0">
@@ -59,7 +91,7 @@ const BlogDetails = () => {
               <div className="w-full flex gap-5">
                 <div className="left w-full xl:w-[70%] flex flex-col gap-5">
                   <div className="flex flex-col sm:flex-row gap-5">
-                    <div className="thumbnail-area w-full sm:w-[50%] xl:w-full flex xl:hidden flex-col p-5 px-4 rounded-xl bg-white">
+                    <div className="thumbnail-area w-full sm:w-[50%] xl:w-full flex xl:hidden flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                       <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                         <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                           Blog Image
@@ -95,17 +127,19 @@ const BlogDetails = () => {
                           <span className="text-black flex-shrink-0">
                             Image Alternate Text :
                           </span>{" "}
-                          {blogDetails.alternateText ? (
-                            blogDetails.alternateText
-                          ) : (
-                            <div className="py-1 w-full">
-                              <Skeleton className="h-4 w-full" />
-                            </div>
-                          )}
+                          <span className="w-full line-clamp-1">
+                            {blogDetails.alternateText ? (
+                              blogDetails.alternateText
+                            ) : (
+                              <div className="py-1 w-full">
+                                <Skeleton className="h-4 w-full" />
+                              </div>
+                            )}
+                          </span>
                         </span>
                       </div>
                     </div>
-                    <div className="seo-area w-full sm:w-[50%] xl:w-full flex flex-col p-5 px-4 rounded-xl bg-white">
+                    <div className="seo-area w-full sm:w-[50%] xl:w-full flex flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                       <div className="w-full user relative flex flex-row items-center sm:items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                         <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                           SEO Details
@@ -171,19 +205,21 @@ const BlogDetails = () => {
                             <span className="text-black flex-shrink-0">
                               Meta Description :
                             </span>{" "}
-                            {blogDetails.metaDescription ? (
-                              blogDetails.metaDescription
-                            ) : (
-                              <div className="py-1 w-full">
-                                <Skeleton className="h-4 w-full xl:w-[200px]" />
-                              </div>
-                            )}
+                            <span className="w-full line-clamp-1">
+                              {blogDetails.metaDescription ? (
+                                blogDetails.metaDescription
+                              ) : (
+                                <div className="py-1 w-full">
+                                  <Skeleton className="h-4 w-full xl:w-[200px]" />
+                                </div>
+                              )}
+                            </span>
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="blog-details-area w-full flex flex-col p-5 px-4 rounded-xl bg-white">
+                  <div className="blog-details-area w-full flex flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full user relative flex flex-row items-center sm:items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog Details
@@ -258,7 +294,11 @@ const BlogDetails = () => {
                             </div>
                           )}
                         </span>
-                        <span className={`w-full flex ${ htmlContent ? "flex-row xl:flex-col" : "flex-row" } items-start justify-start gap-1 xl:gap-2 border-zinc-200 pt-4 text-zinc-500`}>
+                        <span
+                          className={`w-full flex ${
+                            htmlContent ? "flex-row xl:flex-col" : "flex-row"
+                          } items-start justify-start gap-1 xl:gap-2 border-zinc-200 pt-4 text-zinc-500`}
+                        >
                           <span className="text-black flex-shrink-0">
                             Content :
                           </span>{" "}
@@ -276,7 +316,7 @@ const BlogDetails = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="category-area w-full flex xl:hidden flex-col p-5 px-4 rounded-xl bg-white">
+                  <div className="category-area w-full flex xl:hidden flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog Category
@@ -315,7 +355,7 @@ const BlogDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="faq-area w-full flex xl:hidden flex-col pt-5 pb-1 px-4 rounded-xl bg-white">
+                  <div className="faq-area w-full flex xl:hidden flex-col pt-5 pb-1 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog FAQs
@@ -391,7 +431,7 @@ const BlogDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="table-of-content-area w-full flex xl:hidden flex-col pt-5 pb-1 px-4 rounded-xl bg-white">
+                  <div className="table-of-content-area w-full flex xl:hidden flex-col pt-5 pb-1 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Table Of Content
@@ -469,7 +509,7 @@ const BlogDetails = () => {
                   </div>
                 </div>
                 <div className="right w-full xl:w-[30%] hidden xl:flex flex-col gap-5">
-                  <div className="thumbnail-area w-full flex flex-col p-5 px-4 rounded-xl bg-white">
+                  <div className="thumbnail-area w-full flex flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog Image
@@ -505,17 +545,19 @@ const BlogDetails = () => {
                         <span className="text-black flex-shrink-0">
                           Image Alternate Text :
                         </span>{" "}
-                        {blogDetails.alternateText ? (
-                          blogDetails.alternateText
-                        ) : (
-                          <div className="py-1 w-full">
-                            <Skeleton className="h-4 w-full" />
-                          </div>
-                        )}
+                        <span className="w-full line-clamp-1">
+                          {blogDetails.alternateText ? (
+                            blogDetails.alternateText
+                          ) : (
+                            <div className="py-1 w-full">
+                              <Skeleton className="h-4 w-full" />
+                            </div>
+                          )}
+                        </span>
                       </span>
                     </div>
                   </div>
-                  <div className="category-area w-full flex flex-col p-5 px-4 rounded-xl bg-white">
+                  <div className="category-area w-full flex flex-col p-5 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog Category
@@ -554,7 +596,7 @@ const BlogDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="faq-area w-full flex flex-col pt-5 pb-1 px-4 rounded-xl bg-white">
+                  <div className="faq-area w-full flex flex-col pt-5 pb-1 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Blog FAQs
@@ -630,7 +672,7 @@ const BlogDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="table-of-content-area w-full flex flex-col pt-5 pb-1 px-4 rounded-xl bg-white">
+                  <div className="table-of-content-area w-full flex flex-col pt-5 pb-1 px-4 rounded-xl bg-white shadow-md shadow-gray-400">
                     <div className="w-full relative flex flex-row items-center justify-between gap-3 sm:gap-0 border-b-[1px] border-zinc-200 pb-5">
                       <h2 className="w-full text-left sm:text-center text-lg xl:text-xl font-semibold">
                         Table Of Content
