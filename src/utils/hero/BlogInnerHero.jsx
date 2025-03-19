@@ -33,12 +33,12 @@ const BlogInnerHero = ({ blogHeroData }) => {
     }
   };
 
-  document.querySelectorAll(".phone-input").forEach((input) => {
-    input.oninput = () => {
-      if (input.value.length > input.maxLength)
-        input.value = input.value.slice(0, input.maxLength);
-    };
-  });
+  // document.querySelectorAll(".phone-input").forEach((input) => {
+  //   input.oninput = () => {
+  //     if (input.value.length > input.maxLength)
+  //       input.value = input.value.slice(0, input.maxLength);
+  //   };
+  // });
 
   return (
     <div className="section w-full flex flex-col lg:flex-row justify-between gap-8 px-[30px] sm:px-[50px] xl:px-[12vw] pb-5 md:pb-24 2xl:pb-32 pt-24 lg:pt-32">

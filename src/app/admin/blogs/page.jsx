@@ -26,13 +26,13 @@ const Blogs = () => {
     }
   };
 
-  const handleDeleteAction = async (slug) => {
-    if (window.confirm("Are you sure you want to delete this blog?")) {
-      handleDeleteBlog(slug);
-    } else {
-      return;
-    }
-  };
+  // const handleDeleteAction = async (slug) => {
+  //   if (window.confirm("Are you sure you want to delete this blog?")) {
+  //     handleDeleteBlog(slug);
+  //   } else {
+  //     return;
+  //   }
+  // };
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -51,7 +51,7 @@ const Blogs = () => {
     if (session) {
       setUser(session?.user);
     }
-  }, [handleDeleteAction]);
+  }, [handleDeleteBlog]);
 
   return (
     <>
@@ -154,7 +154,7 @@ const Blogs = () => {
                                 {user && user.role == "Admin" && (
                                   <span
                                     onClick={() =>
-                                      handleDeleteAction(item.slug)
+                                      handleDeleteBlog(item.slug)
                                     }
                                     className="w-full cursor-pointer text-center text-white px-5 py-2 rounded-lg bg-red-600 transition-all ease-in-out duration-300 hover:bg-red-700"
                                   >

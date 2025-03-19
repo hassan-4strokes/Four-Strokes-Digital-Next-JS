@@ -10,7 +10,6 @@ const BlogCard = ({
   index,
   isAdmin,
 }) => {
-  const currentPageURL = window.location.href;
 
   return (
     <>

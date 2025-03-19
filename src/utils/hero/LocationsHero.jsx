@@ -33,12 +33,12 @@ const LocationsHero = ({ subHeading, mainHeading, text, buttonText, link }) => {
     }
   };
 
-  document.querySelectorAll(".phone-input").forEach((input) => {
-    input.oninput = () => {
-      if (input.value.length > input.maxLength)
-        input.value = input.value.slice(0, input.maxLength);
-    };
-  });
+  // document.querySelectorAll(".phone-input").forEach((input) => {
+  //   input.oninput = () => {
+  //     if (input.value.length > input.maxLength)
+  //       input.value = input.value.slice(0, input.maxLength);
+  //   };
+  // });
 
   return (
     <div

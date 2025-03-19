@@ -7,9 +7,16 @@ import axios from "axios";
 // import { Context } from "@/main";
 import { useParams } from "react-router-dom";
 import { FacebookShareButton } from "react-share";
+import { useAppContext } from "@/context/Context";
+import { useSession } from "next-auth/react";
 
 const BlogSection = () => {
+  
+  const { user, setUser, fullSidebar } = useAppContext();
+
   // Local States
+  
+    const { data: session } = useSession();
 
   const [blogs, setBlogs] = useState([]);
 
@@ -17,38 +24,24 @@ const BlogSection = () => {
 
   const { slug } = useParams();
 
-  // Context Hook
-
-  // const {
-  //   fullSidebar,
-  //   setFullSidebar,
-  //   user,
-  //   isAuthenticated,
-  //   localHost,
-  //   renderHost,
-  // } = useContext(Context);
-
   // Getting Blogs
 
-  // useEffect(() => {
-  //   const fetchBlogs = async () => {
-  //     try {
-  //       const response = await axios.get(`${renderHost}/api/v1/blog/allblogs`, {
-  //         withCredentials: true,
-  //       });
-  //       setBlogs(response.data.blogs);
-  //     } catch (error) {
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get("/api/v1/blogs/get-all-blogs");
+        setBlogs(response.data.blogs.reverse());
+      } catch (error) {
+        console.error("Some Error Occured While Fetching Blogs", error);
+      }
+    };
 
-  //   fetchBlogs();
+    fetchBlogs();
 
-  //   if (isAuthenticated) {
-  //     setIsAdmin(true); 
-  //   } else {
-  //     setIsAdmin(false);
-  //   }
-  // }, [isAuthenticated]);
+    if (session) {
+      setUser(session?.user);
+    }
+  }, [session]);
 
   return (
     <>

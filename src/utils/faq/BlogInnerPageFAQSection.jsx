@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet";
+"use client"
+
+import { useState } from "react";
 
 const BlogInnerPageFAQSection = ({ faq }) => {
   const [active, setActive] = useState(false);
